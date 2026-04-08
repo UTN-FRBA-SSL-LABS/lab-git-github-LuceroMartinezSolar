@@ -29,8 +29,10 @@ Una vez que aceptaste el assignment en GitHub Classroom, GitHub crea una copia d
 
 ```bash
 git clone <URL-de-tu-repo>
-cd lab-github
+cd <nombre-del-repo>
 ```
+
+> El nombre del directorio clonado es el nombre de tu repo en GitHub Classroom (ej: `lab-github-juan-perez`), no necesariamente `lab-github`.
 
 Verificá el estado inicial:
 
@@ -262,7 +264,7 @@ El **compañero** hace estos pasos:
 
 ```bash
 git clone <URL-del-repo-del-owner>
-cd lab-github
+cd <nombre-del-repo>
 git switch -c sugerencia/<tu-nombre>
 ```
 
@@ -338,6 +340,7 @@ El **owner** vuelve al PR:
 Traete los cambios:
 
 ```bash
+git switch main
 git pull
 ```
 
@@ -351,6 +354,12 @@ _(escribí SI cuando el PR del compañero esté aprobado y mergeado)_
 ## Parte III — Revertir un error
 
 En el día a día es común commitear algo que no debería estar. Git permite deshacerlo sin borrar la historia.
+
+Antes de arrancar, asegurate de estar en `main`:
+
+```bash
+git switch main
+```
 
 ---
 
@@ -378,11 +387,16 @@ git push
 
 `git revert` crea un nuevo commit que deshace los cambios del commit anterior. A diferencia de `git reset`, no borra historia — es seguro en ramas compartidas.
 
+> Si nunca usaste vim, configurá nano como editor antes de correr el revert:
+> ```bash
+> git config --global core.editor nano
+> ```
+
 ```bash
 git revert HEAD
 ```
 
-Git abre un editor con el mensaje del commit de revert. Guardá y cerrá (en vim: `:wq`, en nano: `Ctrl+X → Y → Enter`).
+Git abre un editor con el mensaje del commit de revert. Guardá y cerrá sin cambiar nada (en nano: `Ctrl+X → Y → Enter`, en vim: `:wq`).
 
 Pusheá:
 
@@ -420,7 +434,7 @@ El repositorio ya tiene una branch `feature/conflicto-preparado` que implementa 
 Un conflicto ocurre cuando dos branches modificaron la misma línea del mismo archivo. Git no sabe cuál versión es la correcta — esa decisión la tiene que tomar un humano.
 
 ```
-main                  →  esPar: return n % 2 == 0;
+main                         →  esPar: return (n % 2) == 0;
 feature/conflicto-preparado  →  esPar: return (n & 1) == 0;
 ```
 
@@ -451,7 +465,7 @@ Abrí `operaciones.c`. Vas a ver algo así:
 ```c
 int esPar(int n) {
 <<<<<<< HEAD
-    return n % 2 == 0;
+    return (n % 2) == 0;
 =======
     return (n & 1) == 0;
 >>>>>>> origin/feature/conflicto-preparado
@@ -470,7 +484,7 @@ Editá el archivo para que quede con **una sola versión limpia**, sin los marke
 
 ```c
 int esPar(int n) {
-    return n % 2 == 0;
+    return (n % 2) == 0;
 }
 ```
 
