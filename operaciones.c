@@ -2,7 +2,7 @@
 
 /* ── sumar — ya implementada, referencia de estilo ───────────────────────── */
 
-int sumar(int a, int b) {
+int sumar(const int a, const int b) {
     return a + b;
 }
 
@@ -13,7 +13,7 @@ int restar(int a, int b) {
 }
 
 /* ── multiplicar — implementar en feature/mi-funcion ─────────────────────── */
-/*Se aplica la multiplicación a dos números y se obtiene su resultado*/
+/*Recibe dos números, opera con multiplicación y devuelve una multiplicación*/
 int multiplicar(int a, int b) {
     return a * b; /* TODO: implementar */
 }
